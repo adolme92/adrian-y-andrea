@@ -18,7 +18,11 @@
 
 * { box-sizing: border-box; }
 
-html { min-height: 100%; }
+html {
+  min-height: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
 
 body {
   min-width: 320px;
@@ -341,13 +345,14 @@ h1 span, h2 span {
 /* ---------- Invitación completa ---------- */
 
 .details {
-  --details-photo: url("assets/foto-prueba-mirada.jpeg");
-  --details-photo-position: center 40%;
+  --details-photo: url("assets/foto-adrian-andrea-pelo-ajustado.jpeg");
+  --details-photo-position: center 28%;
+  --details-top-padding: 4.5rem;
   position: relative;
   isolation: isolate;
-  width: min(100%, 980px);
+  width: 100%;
   margin: 0 auto;
-  padding: 4.5rem 1.5rem 2rem;
+  padding: var(--details-top-padding) 1.5rem 2rem;
   color: #fffdf8;
   text-align: center;
   animation: details-in .7s ease both;
@@ -360,8 +365,9 @@ h1 span, h2 span {
   z-index: 0;
   top: 0;
   width: 100vw;
+  height: 100vh;
   height: 100svh;
-  margin: 0 calc(50% - 50vw) -100svh;
+  margin: calc(-1 * var(--details-top-padding)) calc(50% - 50vw) calc(-100svh + var(--details-top-padding));
   background-image:
     linear-gradient(to bottom, rgba(18, 30, 26, .56), rgba(18, 30, 26, .33) 34%, rgba(18, 30, 26, .72)),
     var(--details-photo);
@@ -456,12 +462,14 @@ h1 span, h2 span {
 .timeline p, .location-card p, .stay-section > p, .rsvp-section > p { margin: 0; color: rgba(255,253,248,.88); font: 400 1rem/1.55 "Cormorant Garamond", Georgia, serif; text-shadow: 0 2px 8px rgba(0,0,0,.55); }
 
 .locations-section { max-width: 900px; }
-.location-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.25rem; margin-top: 2.2rem; }
+.location-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin-top: 2.2rem; }
 .location-card {
+  --location-card-padding: 2rem;
   position: relative;
   overflow: hidden;
+  min-width: 0;
   min-height: 250px;
-  padding: 2rem;
+  padding: var(--location-card-padding);
   border: 1px solid rgba(255,253,248,.38);
   border-radius: 5px;
   background: rgba(20, 34, 29, .42);
@@ -474,11 +482,11 @@ h1 span, h2 span {
 
 .location-photo {
   position: relative;
-  width: calc(100% + 4rem);
+  width: calc(100% + (var(--location-card-padding) * 2));
   height: 118px;
   max-height: 118px;
   flex: 0 0 118px;
-  margin: -2rem -2rem 1.45rem;
+  margin: calc(-1 * var(--location-card-padding)) calc(-1 * var(--location-card-padding)) 1.45rem;
   overflow: hidden;
   border-bottom: 1px solid rgba(255,253,248,.26);
   background: #1d4036;
@@ -655,10 +663,70 @@ h1 span, h2 span {
   .walk-map-label-end { right: 3%; top: auto; bottom: 4.2rem; }
 }
 
+/* Ajustes intermedios: evita dos columnas demasiado estrechas en móviles grandes,
+   tabletas verticales y pantallas plegables. */
+@media (max-width: 780px) {
+  .details {
+    --details-top-padding: clamp(3rem, 10vw, 4rem);
+    padding-inline: clamp(1rem, 4vw, 1.5rem);
+  }
+
+  .details-heading,
+  .countdown-section,
+  .event-section,
+  .locations-section,
+  .stay-section,
+  .album-section,
+  .rsvp-section { padding-block: clamp(2.8rem, 9vw, 4rem); }
+
+  .location-grid {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 560px;
+    margin-inline: auto;
+  }
+
+  .location-card {
+    --location-card-padding: clamp(1.25rem, 5vw, 1.75rem);
+    min-height: 0;
+  }
+
+  .location-photo {
+    height: clamp(145px, 38vw, 195px);
+    max-height: none;
+    flex-basis: clamp(145px, 38vw, 195px);
+  }
+
+  .walk-map {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1rem;
+    max-width: 560px;
+    margin-inline: auto;
+    padding: clamp(1.25rem, 5vw, 1.65rem);
+  }
+
+  .walk-map-route { width: 100%; margin: .35rem 0 0; }
+
+  /* En formato estrecho las etiquetas flotantes podían cruzarse con el texto.
+     Los puntos de la ruta siguen señalados y el texto ya identifica ambos destinos. */
+  .walk-map-label { display: none; }
+}
+
+@media (max-width: 420px) {
+  .details h2 { font-size: clamp(2.05rem, 11vw, 2.65rem); }
+  .timeline { margin-top: 2rem; }
+  .timeline::before { left: 3.9rem; }
+  .timeline li { grid-template-columns: 3rem minmax(0, 1fr); gap: 1.15rem; }
+  .timeline time { font-size: .68rem; }
+  .timeline time::after { right: -.96rem; width: .62rem; height: .62rem; }
+  .location-card .place { font-size: 1.15rem; }
+  .walk-map-copy > p:not(.walk-map-kicker) { font-size: .94rem; }
+  .walk-map-copy .walk-map-note { font-size: .82rem; }
+  .rsvp-actions a { width: 100%; }
+}
+
 @media (min-aspect-ratio: 1/1) {
   .details {
-    --details-photo: url("assets/foto-prueba-mirada.jpeg");
-    --details-photo-position: center 27%;
+    --details-photo-position: center 26%;
   }
 }
 
@@ -666,6 +734,9 @@ h1 span, h2 span {
 
 .gatefold {
   --gate-width: min(84vw, 520px);
+  --envelope-open-green:
+    radial-gradient(ellipse at 50% 4%, rgba(65, 91, 60, .35), transparent 46%),
+    linear-gradient(145deg, #213a21 0%, #213921 46%, #182c17 100%);
   position: relative;
   width: var(--gate-width);
   height: calc(var(--gate-width) * .66);
@@ -681,16 +752,34 @@ h1 span, h2 span {
   position: absolute;
   z-index: 0;
   inset: 0;
-  border: 1px solid rgba(220, 232, 215, .2);
   border-radius: 10px;
-  background: linear-gradient(135deg, #3d7562, #173c33);
-  box-shadow: inset 0 2px 1px rgba(255,255,255,.14), inset 0 -14px 20px rgba(0, 0, 0, .28);
+  /* Mismo verde que la base final: no hay salto de color durante la apertura. */
+  background: var(--envelope-open-green);
+  box-shadow: inset 0 1px 0 rgba(128, 146, 115, .16), inset 0 -18px 24px rgba(5, 19, 8, .3);
+  transition: opacity .3s ease .55s;
+}
+
+/* Base única que queda al final: un solo sobre, sin forro ni capas laterales. */
+.gate-open-base {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  border-radius: 10px;
+  opacity: 0;
+  background: var(--envelope-open-green);
+  box-shadow: inset 0 1px 0 rgba(128, 146, 115, .16), inset 0 -18px 24px rgba(5, 19, 8, .3);
+  transition: opacity .3s ease .55s;
 }
 
 .gate-card {
   position: absolute;
   z-index: 1;
-  inset: 6.5%;
+  /* Margen proporcional: deja ver el sobre de forma uniforme en cualquier pantalla. */
+  inset: auto;
+  top: 7%;
+  left: 7%;
+  width: 86%;
+  height: 86%;
   display: grid;
   place-items: center;
   padding: 1.4rem 1rem;
@@ -699,24 +788,26 @@ h1 span, h2 span {
   border-radius: 4px;
   background: var(--paper);
   box-shadow: 0 10px 16px rgba(77, 52, 29, .18), inset 0 1px 0 white;
-  transform: translateZ(4px) scale(.96);
-  transition: transform .9s cubic-bezier(.2, .8, .2, 1), box-shadow .9s ease;
+  opacity: 0;
+  transform: translateY(7%) translateZ(4px) scale(.96);
+  transform-origin: center;
+  transition: opacity .22s ease .25s, transform .8s cubic-bezier(.2, .8, .2, 1) .25s, box-shadow .8s ease .25s;
 }
 
 .gate-card::before,
 .gate-card::after {
   position: absolute;
   z-index: 0;
-  top: 8%;
-  bottom: 8%;
-  width: 33%;
+  top: 14%;
+  bottom: 14%;
+  width: 23%;
   height: auto;
   border: 0;
   border-radius: 0;
   opacity: .94;
   background-image: url("assets/botanical-sprigs.png");
   background-repeat: no-repeat;
-  background-size: 200% 100%;
+  background-size: 250% 100%;
   content: "";
 }
 
@@ -736,8 +827,11 @@ h1 span, h2 span {
   width: 50%;
   overflow: hidden;
   backface-visibility: hidden;
-  background: linear-gradient(145deg, #4b806c 0%, #28604f 52%, #1b493e 100%);
-  box-shadow: inset 0 1px 1px rgba(255,255,255,.16), inset 0 -12px 17px rgba(0, 0, 0, .24);
+  background-color: #183f31;
+  background-image: url("assets/sobre-whatsapp-sin-sello.png");
+  background-repeat: no-repeat;
+  background-size: 200% 100%;
+  box-shadow: none;
   transition: transform .95s cubic-bezier(.2, .8, .2, 1), box-shadow .7s ease;
 }
 
@@ -746,7 +840,7 @@ h1 span, h2 span {
 }
 
 .gate-crease {
-  display: block;
+  display: none;
   width: 100%;
   height: 100%;
   overflow: visible;
@@ -786,6 +880,7 @@ h1 span, h2 span {
   width: calc(50% + 1px);
   border-radius: 10px 0 0 10px;
   transform-origin: left center;
+  background-position: left center;
 }
 
 .gate-door-left span::before {
@@ -808,6 +903,7 @@ h1 span, h2 span {
   width: calc(50% + 1px);
   border-radius: 0 10px 10px 0;
   transform-origin: right center;
+  background-position: right center;
 }
 
 .gate-door-right span::before {
@@ -824,11 +920,51 @@ h1 span, h2 span {
   transform: rotate(-31deg);
 }
 
+/* Sobre clásico: la parte frontal queda fija y solo se levanta la solapa. */
+.gate-front,
+.gate-flap {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  /* Estas capas solo aparecen durante el giro: mismo tono para una transición limpia. */
+  background: var(--envelope-open-green);
+}
+
+.gate-front {
+  z-index: 3;
+  border-radius: 10px;
+  clip-path: polygon(0 46%, 50% 75%, 100% 46%, 100% 100%, 0 100%);
+  transition: opacity .25s ease .22s;
+}
+
+.gate-flap {
+  z-index: 4;
+  border-radius: 10px 10px 0 0;
+  clip-path: polygon(0 0, 100% 0, 50% 76%);
+  transform-origin: 50% 0;
+  transform-style: preserve-3d;
+  transition: transform .72s cubic-bezier(.2, .8, .2, 1), opacity .24s ease .27s;
+}
+
+/* Capa completa para que el sobre cerrado nunca deje ver la invitación. */
+.gate-closed {
+  position: absolute;
+  z-index: 6;
+  inset: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  backface-visibility: hidden;
+  background: #183f31 url("assets/sobre-whatsapp-sin-sello.png") center / 100% 100% no-repeat;
+  transition: opacity .16s ease .14s, visibility 0s linear .3s;
+}
+
 .gate-seal {
   position: absolute;
-  z-index: 4;
+  z-index: 7;
   left: 50%;
-  top: 50%;
+  /* El sello se asienta en la punta de la solapa, como en el sobre de WhatsApp. */
+  top: 74.5%;
   display: block;
   width: clamp(86px, 16.5vw, 112px);
   aspect-ratio: 1;
@@ -841,7 +977,8 @@ h1 span, h2 span {
   text-shadow: 0 1px 0 rgba(253, 228, 172, .86), 0 -1px 0 rgba(86, 64, 30, .45), 1px 1px 1px rgba(96, 70, 32, .18);
   background: url("assets/wax-seal-realistic.png") center / contain no-repeat;
   box-shadow: none;
-  filter: drop-shadow(0 7px 7px rgba(0, 0, 0, .34));
+  /* Un oro un poco más profundo, como el acabado de la vista previa de WhatsApp. */
+  filter: brightness(.84) saturate(.93) contrast(1.05) drop-shadow(0 7px 7px rgba(0, 0, 0, .34));
   transform: translate(-50%, -50%) translateZ(24px);
   transition: opacity .35s ease, transform .7s cubic-bezier(.2, .8, .2, 1);
 }
@@ -904,11 +1041,14 @@ h1 span, h2 span {
 }
 .gate-seal:focus-visible { outline: 3px solid var(--gold); outline-offset: 8px; }
 
-.gatefold.is-open { transform: rotateX(0deg) scale(1.02); filter: drop-shadow(0 30px 24px rgba(86, 57, 32, .25)); }
-.gatefold.is-open .gate-door-left { transform: rotateY(-108deg); box-shadow: none; }
-.gatefold.is-open .gate-door-right { transform: rotateY(108deg); box-shadow: none; }
+.gatefold.is-open { transform: rotateX(0deg) scale(1.02); filter: none; }
+.gatefold.is-open .gate-closed { visibility: hidden; opacity: 0; pointer-events: none; }
+.gatefold.is-open .gate-flap { transform: rotateX(-145deg) translateZ(1px); opacity: 0; transition-delay: .14s, .31s; }
+.gatefold.is-open .gatefold-back,
+.gatefold.is-open .gate-front { opacity: 0; pointer-events: none; }
+.gatefold.is-open .gate-open-base { opacity: 1; transition-delay: .14s; }
 .gatefold.is-open .gate-seal { opacity: 0; transform: translate(-50%, -50%) translateZ(24px) scale(.25) rotate(18deg); pointer-events: none; }
-.gatefold.is-open .gate-card { transform: translateZ(32px) scale(1.03); box-shadow: 0 22px 30px rgba(77, 52, 29, .23), inset 0 1px 0 white; }
+.gatefold.is-open .gate-card { z-index: 5; opacity: 1; transform: translateY(0) translateZ(48px) scale(1); box-shadow: 0 22px 30px rgba(77, 52, 29, .23), inset 0 1px 0 white; }
 
 @media (hover: hover) {
   .gatefold:not(.is-open):hover { transform: translateY(-5px) rotateX(4deg) rotateY(-2deg); }
@@ -917,6 +1057,8 @@ h1 span, h2 span {
 
 @media (max-width: 520px) {
   .gate-card { padding: 1rem .6rem; }
-  .gate-card h2 { font-size: 2rem; }
+  .gate-card::before,
+  .gate-card::after { top: 20%; bottom: 20%; width: 20%; }
+  .gate-card h2 { font-size: clamp(1.6rem, 8vw, 2rem); }
   .gate-card .card-note { font-size: .82rem; }
 }

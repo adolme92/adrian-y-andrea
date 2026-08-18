@@ -33,7 +33,7 @@
       <p class="instruction" id="instruction">Pulsa el sello para abrir</p>
     </header>
 
-    <!-- Carpeta de dos puertas: el sello es el control real de apertura. -->
+    <!-- Sobre clásico: el sello abre la solapa y la invitación sale desde dentro. -->
     <div class="gatefold" id="envelope" aria-expanded="false" aria-label="Invitación de Adrián y Andrea">
       <article class="gate-card" aria-label="Invitación de boda">
         <p class="card-kicker">Nos casamos</p>
@@ -44,16 +44,10 @@
       </article>
 
       <div class="gatefold-back" aria-hidden="true"></div>
-      <div class="gate-door gate-door-left" aria-hidden="true">
-        <svg class="gate-crease" viewBox="0 0 50 66" preserveAspectRatio="none">
-          <path d="M0 0L50 33M0 66L50 33"></path>
-        </svg>
-      </div>
-      <div class="gate-door gate-door-right" aria-hidden="true">
-        <svg class="gate-crease" viewBox="0 0 50 66" preserveAspectRatio="none">
-          <path d="M50 0L0 33M50 66L0 33"></path>
-        </svg>
-      </div>
+      <div class="gate-open-base" aria-hidden="true"></div>
+      <div class="gate-front" aria-hidden="true"></div>
+      <div class="gate-flap" aria-hidden="true"></div>
+      <div class="gate-closed" aria-hidden="true"></div>
 
       <button class="gate-seal" id="seal" type="button" aria-label="Romper el sello y abrir la invitación">
         <span class="seal-monogram" aria-label="A y A">

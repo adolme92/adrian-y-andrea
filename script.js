@@ -21,7 +21,7 @@ function openEnvelope() {
 
   window.setTimeout(() => {
     continueButton.hidden = false;
-  }, 950);
+  }, 1250);
 }
 
 function showDetails() {
