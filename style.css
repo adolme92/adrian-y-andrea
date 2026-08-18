@@ -354,6 +354,8 @@ h1 span, h2 span {
   margin: 0 auto;
   padding: var(--details-top-padding) 1.5rem 2rem;
   color: #fffdf8;
+  /* Fondo de respaldo al terminar el scroll, especialmente en Safari/iOS. */
+  background: #172b23;
   text-align: center;
   animation: details-in .7s ease both;
 }
@@ -374,6 +376,15 @@ h1 span, h2 span {
   background-position: center, var(--details-photo-position);
   background-repeat: no-repeat;
   background-size: cover;
+}
+
+/* En navegadores actuales, la altura dinámica evita el hueco claro que podía
+   aparecer al final al mostrar u ocultar la barra del navegador móvil. */
+@supports (height: 100dvh) {
+  .details-photo-background {
+    height: 100dvh;
+    margin-bottom: calc(-100dvh + var(--details-top-padding));
+  }
 }
 
 .details > :not(.details-photo-background) {
