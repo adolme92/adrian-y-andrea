@@ -28,6 +28,8 @@ function showDetails() {
   details.hidden = false;
   details.setAttribute("aria-hidden", "false");
   continueButton.hidden = true;
+  // Al continuar, eliminamos el espacio sobrante de la portada antes del contenido.
+  scene.classList.add("show-details");
 
   window.setTimeout(() => {
     details.scrollIntoView({ behavior: "smooth", block: "start" });
