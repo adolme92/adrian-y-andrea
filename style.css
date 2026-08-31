@@ -823,7 +823,7 @@ h1 span, h2 span {
   z-index: 0;
   top: 12%;
   bottom: 12%;
-  width: 22%;
+  width: 23%;
   height: auto;
   border: 0;
   border-radius: 0;
@@ -834,8 +834,10 @@ h1 span, h2 span {
   content: "";
 }
 
-.gate-card::before { left: 3%; background-position: left center; }
-.gate-card::after { right: 3%; background-position: right center; }
+/* El dibujo lleva espacio transparente a sus lados: estas posiciones acercan
+   la parte visible de las ramas, no solo el contenedor invisible. */
+.gate-card::before { left: 7%; background-position: left center; }
+.gate-card::after { right: 7%; background-position: right center; }
 .gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 .53rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .gate-card > * { position: relative; z-index: 1; }
 .gate-card h2 {
@@ -1089,18 +1091,18 @@ h1 span, h2 span {
 @media (max-width: 520px) {
   .gate-card { padding: 1rem .6rem; }
   .gate-card::before,
-  .gate-card::after { top: 16%; bottom: 16%; width: 21%; }
-  .gate-card::before { left: 2%; }
-  .gate-card::after { right: 2%; }
+  .gate-card::after { top: 16%; bottom: 16%; width: 22%; }
+  .gate-card::before { left: 5%; }
+  .gate-card::after { right: 5%; }
   .gate-card h2 { width: 62%; max-width: 62%; font-size: clamp(1.15rem, 5.1vw, 1.65rem); }
   .gate-card .card-note { max-width: 62%; font-size: .82rem; }
 }
 
 @media (max-width: 360px) {
   .gate-card::before,
-  .gate-card::after { top: 19%; bottom: 19%; width: 18%; opacity: .82; }
-  .gate-card::before { left: 1%; }
-  .gate-card::after { right: 1%; }
+  .gate-card::after { top: 19%; bottom: 19%; width: 19%; opacity: .82; }
+  .gate-card::before { left: 3%; }
+  .gate-card::after { right: 3%; }
   .gate-card h2 { width: 60%; max-width: 60%; }
   .gate-card .card-note { max-width: 60%; }
 }
