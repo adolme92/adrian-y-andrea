@@ -34,7 +34,8 @@ function showDetails() {
   scene.hidden = true;
 
   window.requestAnimationFrame(() => {
-    details.scrollIntoView({ behavior: "smooth", block: "start" });
+    // La sección de detalles ahora es el inicio del documento.
+    window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
 

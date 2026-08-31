@@ -57,6 +57,10 @@ body::before {
   perspective: 1500px;
 }
 
+/* La regla de maquetación de .scene no debe anular el atributo hidden.
+   Al entrar en la invitación se retira por completo del documento. */
+.scene[hidden] { display: none !important; }
+
 .intro {
   transform-style: preserve-3d;
   transition: opacity .35s ease, transform .35s ease;
@@ -817,9 +821,9 @@ h1 span, h2 span {
 .gate-card::after {
   position: absolute;
   z-index: 0;
-  top: 14%;
-  bottom: 14%;
-  width: 20%;
+  top: 12%;
+  bottom: 12%;
+  width: 22%;
   height: auto;
   border: 0;
   border-radius: 0;
@@ -830,8 +834,8 @@ h1 span, h2 span {
   content: "";
 }
 
-.gate-card::before { left: 0; background-position: left center; }
-.gate-card::after { right: 0; background-position: right center; }
+.gate-card::before { left: 3%; background-position: left center; }
+.gate-card::after { right: 3%; background-position: right center; }
 .gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 .53rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .gate-card > * { position: relative; z-index: 1; }
 .gate-card h2 {
@@ -1085,14 +1089,18 @@ h1 span, h2 span {
 @media (max-width: 520px) {
   .gate-card { padding: 1rem .6rem; }
   .gate-card::before,
-  .gate-card::after { top: 18%; bottom: 18%; width: 19%; }
+  .gate-card::after { top: 16%; bottom: 16%; width: 21%; }
+  .gate-card::before { left: 2%; }
+  .gate-card::after { right: 2%; }
   .gate-card h2 { width: 62%; max-width: 62%; font-size: clamp(1.15rem, 5.1vw, 1.65rem); }
   .gate-card .card-note { max-width: 62%; font-size: .82rem; }
 }
 
 @media (max-width: 360px) {
   .gate-card::before,
-  .gate-card::after { top: 20%; bottom: 20%; width: 17%; opacity: .82; }
+  .gate-card::after { top: 19%; bottom: 19%; width: 18%; opacity: .82; }
+  .gate-card::before { left: 1%; }
+  .gate-card::after { right: 1%; }
   .gate-card h2 { width: 60%; max-width: 60%; }
   .gate-card .card-note { max-width: 60%; }
 }
