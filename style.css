@@ -1080,9 +1080,14 @@ h1 span, h2 span {
 }
 
 @media (max-width: 520px) {
-  .gate-card { padding: 1rem .6rem; }
-  .gate-card h2 { width: 64%; max-width: 64%; font-size: clamp(1rem, 6.1cqw, 1.72rem); }
-  .gate-card .card-note { max-width: 62%; font-size: .92rem; }
+  /* Composición específica para móvil: los laterales quedan decorados sin
+     invadir los nombres ni el texto central. */
+  .gate-card {
+    padding: 1rem .6rem;
+    background-image: url("assets/botanical-sprigs-mobile.png");
+  }
+  .gate-card h2 { width: 66%; max-width: 66%; font-size: clamp(1.05rem, 6.6cqw, 1.8rem); }
+  .gate-card .card-note { max-width: 60%; font-size: .98rem; }
 }
 
 @media (max-width: 360px) {
