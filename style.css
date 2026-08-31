@@ -813,9 +813,8 @@ h1 span, h2 span {
      no cambia su separación en móviles, tabletas ni ordenadores. */
   /* Un único motivo vegetal: se ajusta con la propia tarjeta y deja el
      centro despejado sin colocar ramas con píxeles fijos. */
-  /* Ramas recompuestas para esta proporción: más cortas, simétricas y a los
-     laterales. Funcionan como un marco y no compiten con los nombres. */
-  background: var(--paper) url("assets/botanical-sprigs-balanced.png") center / 100% 100% no-repeat;
+  /* Composición simétrica con una zona central libre para los textos. */
+  background: var(--paper) url("assets/botanical-sprigs-taller.png") center / 100% 100% no-repeat;
   box-shadow: 0 10px 16px rgba(77, 52, 29, .18), inset 0 1px 0 white;
   opacity: 0;
   transform: translateY(7%) translateZ(4px) scale(.96);
@@ -828,21 +827,21 @@ h1 span, h2 span {
   display: none;
 }
 
-.gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 .53rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 clamp(.62rem, 2cqw, .9rem)/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .gate-card > * { position: relative; z-index: 1; }
 .gate-card h2 {
   /* Una sola línea siempre: el tamaño depende del ancho real de la tarjeta,
      no del dispositivo desde el que se abra. */
-  width: 70%;
-  max-width: 70%;
+  width: 68%;
+  max-width: 68%;
   margin: 0;
   white-space: nowrap;
-  font: 500 clamp(1.02rem, 6.4cqw, 2.35rem)/.94 "Cormorant Garamond", Georgia, serif;
+  font: 500 clamp(1.15rem, 8cqw, 2.9rem)/.94 "Cormorant Garamond", Georgia, serif;
   letter-spacing: -.025em;
   text-shadow: 0 1px 0 white, 0 2px 2px rgba(74, 48, 26, .14);
 }
-.gate-card .card-date { margin: 0; color: var(--ink); font: 600 .54rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-.gate-card .card-note { max-width: 54%; margin: 0; color: var(--muted); font: 400 1rem/1.1 "Cormorant Garamond", Georgia, serif; }
+.gate-card .card-date { margin: 0; color: var(--ink); font: 600 clamp(.62rem, 2cqw, .9rem)/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
+.gate-card .card-note { max-width: 62%; margin: 0; color: var(--muted); font: 400 clamp(1rem, 3.4cqw, 1.3rem)/1.1 "Cormorant Garamond", Georgia, serif; }
 
 .gate-door {
   position: absolute;
@@ -1082,13 +1081,13 @@ h1 span, h2 span {
 
 @media (max-width: 520px) {
   .gate-card { padding: 1rem .6rem; }
-  .gate-card h2 { width: 70%; max-width: 70%; font-size: clamp(1.02rem, 6.4cqw, 1.65rem); }
-  .gate-card .card-note { max-width: 58%; font-size: .82rem; }
+  .gate-card h2 { width: 64%; max-width: 64%; font-size: clamp(1rem, 6.1cqw, 1.72rem); }
+  .gate-card .card-note { max-width: 62%; font-size: .92rem; }
 }
 
 @media (max-width: 360px) {
-  .gate-card h2 { width: 70%; max-width: 70%; }
-  .gate-card .card-note { max-width: 60%; }
+  .gate-card h2 { width: 64%; max-width: 64%; }
+  .gate-card .card-note { max-width: 62%; }
 }
 
 /* El diseño se ajusta al tamaño de la carta incluso dentro de una ventana
@@ -1096,8 +1095,8 @@ h1 span, h2 span {
 @container (max-width: 330px) {
   .gate-card::before,
   .gate-card::after { width: 15%; opacity: .78; }
-  .gate-card h2 { width: 70%; max-width: 70%; font-size: clamp(.98rem, 6.4cqw, 1.08rem); }
-  .gate-card .card-note { max-width: 58%; font-size: .72rem; }
+  .gate-card h2 { width: 64%; max-width: 64%; font-size: clamp(.95rem, 6.1cqw, 1.12rem); }
+  .gate-card .card-note { max-width: 62%; font-size: .8rem; }
   .gate-card .card-kicker,
-  .gate-card .card-date { font-size: .48rem; }
+  .gate-card .card-date { font-size: .52rem; }
 }
