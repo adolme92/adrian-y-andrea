@@ -796,25 +796,22 @@ h1 span, h2 span {
 .gate-card {
   position: absolute;
   z-index: 1;
-  /* Margen proporcional: deja ver el sobre de forma uniforme en cualquier pantalla. */
-  inset: auto;
+  /* La tarjeta conserva siempre el mismo marco proporcional al sobre. */
   top: 7%;
   left: 7%;
   width: 86%;
   height: 86%;
   display: grid;
-  place-items: center;
-  padding: 1.4rem 1rem;
+  grid-template-columns: minmax(0, 18.5%) minmax(0, 63%) minmax(0, 18.5%);
+  grid-template-rows: 1fr;
+  align-items: center;
+  padding: clamp(.35rem, 1.25cqw, .9rem);
   overflow: hidden;
   container-type: inline-size;
+  isolation: isolate;
   border: 1px solid rgba(178, 138, 89, .36);
   border-radius: 4px;
-  /* Las dos ramas forman una única composición. Al escalarse con la tarjeta
-     no cambia su separación en móviles, tabletas ni ordenadores. */
-  /* Un único motivo vegetal: se ajusta con la propia tarjeta y deja el
-     centro despejado sin colocar ramas con píxeles fijos. */
-  /* Composición simétrica con una zona central libre para los textos. */
-  background: var(--paper) url("assets/botanical-sprigs-taller.png") center / 100% 100% no-repeat;
+  background: var(--paper);
   box-shadow: 0 10px 16px rgba(77, 52, 29, .18), inset 0 1px 0 white;
   opacity: 0;
   transform: translateY(7%) translateZ(4px) scale(.96);
@@ -827,21 +824,74 @@ h1 span, h2 span {
   display: none;
 }
 
-.gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 clamp(.62rem, 2cqw, .9rem)/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .gate-card > * { position: relative; z-index: 1; }
+
+/*
+  El contenido central y las dos ramas viven en tres columnas distintas.
+  Esto hace imposible que una rama invada los nombres, incluso en móviles
+  estrechos, tablets o ventanas partidas.
+*/
+.gate-card .card-copy {
+  grid-column: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* Separación vertical real también en pantallas estrechas: antes, al
+     depender de un porcentaje demasiado pequeño, las cinco líneas quedaban
+     prácticamente pegadas en algunos iPhone. */
+  gap: clamp(.55rem, 4cqw, 1.25rem);
+  min-width: 0;
+  height: 100%;
+  text-align: center;
+}
+
+.gate-card .card-branch {
+  grid-row: 1;
+  align-self: center;
+  justify-self: center;
+  display: block;
+  width: min(100%, 11rem);
+  max-height: 88%;
+  height: auto;
+  object-fit: contain;
+  opacity: .96;
+  pointer-events: none;
+  user-select: none;
+}
+
+.gate-card .card-branch-left { grid-column: 1; }
+.gate-card .card-branch-right { grid-column: 3; }
+
+.gate-card .card-kicker {
+  margin: 0;
+  color: var(--gold);
+  font: 600 clamp(.48rem, 1.6cqw, .82rem)/1 "Montserrat", sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
 .gate-card h2 {
-  /* Una sola línea siempre: el tamaño depende del ancho real de la tarjeta,
-     no del dispositivo desde el que se abra. */
-  width: 68%;
-  max-width: 68%;
   margin: 0;
   white-space: nowrap;
-  font: 500 clamp(1.15rem, 8cqw, 2.9rem)/.94 "Cormorant Garamond", Georgia, serif;
-  letter-spacing: -.025em;
+  font: 500 clamp(.9rem, 6.35cqw, 2.65rem)/.94 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -.035em;
   text-shadow: 0 1px 0 white, 0 2px 2px rgba(74, 48, 26, .14);
 }
-.gate-card .card-date { margin: 0; color: var(--ink); font: 600 clamp(.62rem, 2cqw, .9rem)/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-.gate-card .card-note { max-width: 62%; margin: 0; color: var(--muted); font: 400 clamp(1rem, 3.4cqw, 1.3rem)/1.1 "Cormorant Garamond", Georgia, serif; }
+.gate-card .card-date {
+  margin: 0;
+  color: var(--ink);
+  font: 600 clamp(.47rem, 1.58cqw, .78rem)/1 "Montserrat", sans-serif;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.gate-card .card-note {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: var(--muted);
+  font: 400 clamp(.7rem, 3.05cqw, 1.2rem)/1.1 "Cormorant Garamond", Georgia, serif;
+}
 
 .gate-door {
   position: absolute;
@@ -1079,29 +1129,12 @@ h1 span, h2 span {
   .gate-seal:hover { transform: translate(-50%, -50%) translateZ(28px) scale(1.06); }
 }
 
-@media (max-width: 520px) {
-  /* Composición específica para móvil: los laterales quedan decorados sin
-     invadir los nombres ni el texto central. */
-  .gate-card {
-    padding: 1rem .6rem;
-    background-image: url("assets/botanical-sprigs-mobile.png");
-  }
-  .gate-card h2 { width: 66%; max-width: 66%; font-size: clamp(1.05rem, 6.6cqw, 1.8rem); }
-  .gate-card .card-note { max-width: 60%; font-size: .98rem; }
-}
-
-@media (max-width: 360px) {
-  .gate-card h2 { width: 64%; max-width: 64%; }
-  .gate-card .card-note { max-width: 62%; }
-}
-
-/* El diseño se ajusta al tamaño de la carta incluso dentro de una ventana
-   estrecha, un móvil plegable o una tablet en pantalla dividida. */
-@container (max-width: 330px) {
-  .gate-card::before,
-  .gate-card::after { width: 15%; opacity: .78; }
-  .gate-card h2 { width: 64%; max-width: 64%; font-size: clamp(.95rem, 6.1cqw, 1.12rem); }
-  .gate-card .card-note { max-width: 62%; font-size: .8rem; }
-  .gate-card .card-kicker,
-  .gate-card .card-date { font-size: .52rem; }
+/* Fallback para navegadores antiguos sin unidades de contenedor. */
+@supports not (width: 1cqw) {
+  .gate-card { padding: .55rem; }
+  .gate-card .card-copy { gap: clamp(.55rem, 3.5vw, 1.25rem); }
+  .gate-card .card-kicker { font-size: clamp(.48rem, 1.6vw, .82rem); }
+  .gate-card h2 { font-size: clamp(.9rem, 4.4vw, 2.65rem); }
+  .gate-card .card-date { font-size: clamp(.47rem, 1.55vw, .78rem); }
+  .gate-card .card-note { font-size: clamp(.7rem, 2.15vw, 1.2rem); }
 }

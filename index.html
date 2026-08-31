@@ -36,11 +36,18 @@
     <!-- Sobre clásico: el sello abre la solapa y la invitación sale desde dentro. -->
     <div class="gatefold" id="envelope" aria-expanded="false" aria-label="Invitación de Adrián y Andrea">
       <article class="gate-card" aria-label="Invitación de boda">
-        <p class="card-kicker">Nos casamos</p>
-        <h2>Adrián <span>&amp;</span> Andrea</h2>
-        <div class="card-rule" aria-hidden="true"></div>
-        <p class="card-date">6 de marzo de 2027</p>
-        <p class="card-note">Será un día muy especial<br>y nos encantará compartirlo contigo.</p>
+        <!-- Las ramas y el texto son piezas independientes: nunca pueden solaparse. -->
+        <img class="card-branch card-branch-left" src="assets/botanical-left.png" alt="" aria-hidden="true" decoding="async">
+
+        <div class="card-copy">
+          <p class="card-kicker">Nos casamos</p>
+          <h2>Adrián <span>&amp;</span> Andrea</h2>
+          <div class="card-rule" aria-hidden="true"></div>
+          <p class="card-date">6 de marzo de 2027</p>
+          <p class="card-note">Será un día muy especial<br>y nos encantará compartirlo contigo.</p>
+        </div>
+
+        <img class="card-branch card-branch-right" src="assets/botanical-right.png" alt="" aria-hidden="true" decoding="async">
       </article>
 
       <div class="gatefold-back" aria-hidden="true"></div>
