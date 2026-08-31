@@ -809,7 +809,13 @@ h1 span, h2 span {
   container-type: inline-size;
   border: 1px solid rgba(178, 138, 89, .36);
   border-radius: 4px;
-  background: var(--paper);
+  /* Las dos ramas forman una única composición. Al escalarse con la tarjeta
+     no cambia su separación en móviles, tabletas ni ordenadores. */
+  /* Un único motivo vegetal: se ajusta con la propia tarjeta y deja el
+     centro despejado sin colocar ramas con píxeles fijos. */
+  /* Ramas recompuestas para esta proporción: más cortas, simétricas y a los
+     laterales. Funcionan como un marco y no compiten con los nombres. */
+  background: var(--paper) url("assets/botanical-sprigs-balanced.png") center / 100% 100% no-repeat;
   box-shadow: 0 10px 16px rgba(77, 52, 29, .18), inset 0 1px 0 white;
   opacity: 0;
   transform: translateY(7%) translateZ(4px) scale(.96);
@@ -819,38 +825,24 @@ h1 span, h2 span {
 
 .gate-card::before,
 .gate-card::after {
-  position: absolute;
-  z-index: 0;
-  top: 12%;
-  bottom: 12%;
-  width: 23%;
-  height: auto;
-  border: 0;
-  border-radius: 0;
-  opacity: .9;
-  background-image: url("assets/botanical-sprigs.png");
-  background-repeat: no-repeat;
-  background-size: 250% 100%;
-  content: "";
+  display: none;
 }
 
-/* El dibujo lleva espacio transparente a sus lados: estas posiciones acercan
-   la parte visible de las ramas, no solo el contenedor invisible. */
-.gate-card::before { left: 7%; background-position: left center; }
-.gate-card::after { right: 7%; background-position: right center; }
 .gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 .53rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .gate-card > * { position: relative; z-index: 1; }
 .gate-card h2 {
-  width: 64%;
-  max-width: 64%;
+  /* Una sola línea siempre: el tamaño depende del ancho real de la tarjeta,
+     no del dispositivo desde el que se abra. */
+  width: 70%;
+  max-width: 70%;
   margin: 0;
-  font: 500 clamp(1.3rem, 5vw, 2.35rem)/.94 "Cormorant Garamond", Georgia, serif;
-  overflow-wrap: anywhere;
-  text-wrap: balance;
+  white-space: nowrap;
+  font: 500 clamp(1.02rem, 6.4cqw, 2.35rem)/.94 "Cormorant Garamond", Georgia, serif;
+  letter-spacing: -.025em;
   text-shadow: 0 1px 0 white, 0 2px 2px rgba(74, 48, 26, .14);
 }
 .gate-card .card-date { margin: 0; color: var(--ink); font: 600 .54rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-.gate-card .card-note { max-width: 64%; margin: 0; color: var(--muted); font: 400 1rem/1.1 "Cormorant Garamond", Georgia, serif; }
+.gate-card .card-note { max-width: 54%; margin: 0; color: var(--muted); font: 400 1rem/1.1 "Cormorant Garamond", Georgia, serif; }
 
 .gate-door {
   position: absolute;
@@ -1090,20 +1082,12 @@ h1 span, h2 span {
 
 @media (max-width: 520px) {
   .gate-card { padding: 1rem .6rem; }
-  .gate-card::before,
-  .gate-card::after { top: 16%; bottom: 16%; width: 22%; }
-  .gate-card::before { left: 5%; }
-  .gate-card::after { right: 5%; }
-  .gate-card h2 { width: 62%; max-width: 62%; font-size: clamp(1.15rem, 5.1vw, 1.65rem); }
-  .gate-card .card-note { max-width: 62%; font-size: .82rem; }
+  .gate-card h2 { width: 70%; max-width: 70%; font-size: clamp(1.02rem, 6.4cqw, 1.65rem); }
+  .gate-card .card-note { max-width: 58%; font-size: .82rem; }
 }
 
 @media (max-width: 360px) {
-  .gate-card::before,
-  .gate-card::after { top: 19%; bottom: 19%; width: 19%; opacity: .82; }
-  .gate-card::before { left: 3%; }
-  .gate-card::after { right: 3%; }
-  .gate-card h2 { width: 60%; max-width: 60%; }
+  .gate-card h2 { width: 70%; max-width: 70%; }
   .gate-card .card-note { max-width: 60%; }
 }
 
@@ -1112,7 +1096,7 @@ h1 span, h2 span {
 @container (max-width: 330px) {
   .gate-card::before,
   .gate-card::after { width: 15%; opacity: .78; }
-  .gate-card h2 { width: 62%; max-width: 62%; font-size: 1.08rem; }
+  .gate-card h2 { width: 70%; max-width: 70%; font-size: clamp(.98rem, 6.4cqw, 1.08rem); }
   .gate-card .card-note { max-width: 58%; font-size: .72rem; }
   .gate-card .card-kicker,
   .gate-card .card-date { font-size: .48rem; }
