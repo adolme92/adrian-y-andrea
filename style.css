@@ -817,16 +817,16 @@ h1 span, h2 span {
 .gate-card::after {
   position: absolute;
   z-index: 0;
-  top: 16%;
-  bottom: 16%;
-  width: 16%;
+  top: 14%;
+  bottom: 14%;
+  width: 20%;
   height: auto;
   border: 0;
   border-radius: 0;
   opacity: .9;
   background-image: url("assets/botanical-sprigs.png");
   background-repeat: no-repeat;
-  background-size: 290% 100%;
+  background-size: 250% 100%;
   content: "";
 }
 
@@ -835,8 +835,8 @@ h1 span, h2 span {
 .gate-card .card-kicker { margin: 0; color: var(--gold); font: 600 .53rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
 .gate-card > * { position: relative; z-index: 1; }
 .gate-card h2 {
-  width: 68%;
-  max-width: 68%;
+  width: 64%;
+  max-width: 64%;
   margin: 0;
   font: 500 clamp(1.3rem, 5vw, 2.35rem)/.94 "Cormorant Garamond", Georgia, serif;
   overflow-wrap: anywhere;
@@ -844,7 +844,7 @@ h1 span, h2 span {
   text-shadow: 0 1px 0 white, 0 2px 2px rgba(74, 48, 26, .14);
 }
 .gate-card .card-date { margin: 0; color: var(--ink); font: 600 .54rem/1 "Montserrat", sans-serif; letter-spacing: .14em; text-transform: uppercase; }
-.gate-card .card-note { max-width: 68%; margin: 0; color: var(--muted); font: 400 1rem/1.1 "Cormorant Garamond", Georgia, serif; }
+.gate-card .card-note { max-width: 64%; margin: 0; color: var(--muted); font: 400 1rem/1.1 "Cormorant Garamond", Georgia, serif; }
 
 .gate-door {
   position: absolute;
@@ -1085,15 +1085,15 @@ h1 span, h2 span {
 @media (max-width: 520px) {
   .gate-card { padding: 1rem .6rem; }
   .gate-card::before,
-  .gate-card::after { top: 19%; bottom: 19%; width: 17%; }
-  .gate-card h2 { width: 64%; max-width: 64%; font-size: clamp(1.15rem, 5.1vw, 1.65rem); }
+  .gate-card::after { top: 18%; bottom: 18%; width: 19%; }
+  .gate-card h2 { width: 62%; max-width: 62%; font-size: clamp(1.15rem, 5.1vw, 1.65rem); }
   .gate-card .card-note { max-width: 62%; font-size: .82rem; }
 }
 
 @media (max-width: 360px) {
   .gate-card::before,
-  .gate-card::after { top: 21%; bottom: 21%; width: 15%; opacity: .82; }
-  .gate-card h2 { width: 62%; max-width: 62%; }
+  .gate-card::after { top: 20%; bottom: 20%; width: 17%; opacity: .82; }
+  .gate-card h2 { width: 60%; max-width: 60%; }
   .gate-card .card-note { max-width: 60%; }
 }
 

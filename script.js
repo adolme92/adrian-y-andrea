@@ -28,12 +28,14 @@ function showDetails() {
   details.hidden = false;
   details.setAttribute("aria-hidden", "false");
   continueButton.hidden = true;
-  // Al continuar, eliminamos el espacio sobrante de la portada antes del contenido.
-  scene.classList.add("show-details");
+  // Al continuar, retiramos la portada por completo: así no aparece un hueco
+  // ni se puede volver a ella al deslizar hacia arriba.
+  scene.setAttribute("aria-hidden", "true");
+  scene.hidden = true;
 
-  window.setTimeout(() => {
+  window.requestAnimationFrame(() => {
     details.scrollIntoView({ behavior: "smooth", block: "start" });
-  }, 100);
+  });
 }
 
 function updateCountdown() {
