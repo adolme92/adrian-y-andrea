@@ -4,6 +4,7 @@
 const envelope = document.getElementById("envelope");
 const seal = document.getElementById("seal");
 const scene = document.getElementById("scene");
+const intro = document.querySelector(".intro");
 const instruction = document.getElementById("instruction");
 const continueButton = document.getElementById("continueButton");
 const details = document.getElementById("details");
@@ -18,6 +19,13 @@ function openEnvelope() {
   envelope.classList.add("is-open");
   envelope.setAttribute("aria-expanded", "true");
   instruction.textContent = "Con mucho cariño";
+
+  // El título se desvanece primero; al retirarlo del flujo el sobre no queda
+  // empujado hacia abajo en las pantallas altas de móvil.
+  window.setTimeout(() => {
+    intro.hidden = true;
+    scene.classList.add("opened-layout");
+  }, 360);
 
   window.setTimeout(() => {
     continueButton.hidden = false;

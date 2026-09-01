@@ -23,7 +23,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Great+Vibes&family=Montserrat:wght@400;500;600&family=Pinyon+Script&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <!-- El número de versión evita que móviles y ordenadores reutilicen un CSS antiguo. -->
+  <link rel="stylesheet" href="style.css?v=20260901-marco-v10">
 </head>
 <body>
   <main class="scene" id="scene">
@@ -47,7 +48,8 @@
           <p class="card-note">Será un día muy especial<br>y nos encantará compartirlo contigo.</p>
         </div>
 
-        <img class="card-branch card-branch-right" src="assets/botanical-right.png" alt="" aria-hidden="true" decoding="async">
+        <!-- La misma ilustración se refleja con CSS para que ambos lados sean idénticos. -->
+        <img class="card-branch card-branch-right" src="assets/botanical-left.png" alt="" aria-hidden="true" decoding="async">
       </article>
 
       <div class="gatefold-back" aria-hidden="true"></div>
@@ -190,6 +192,6 @@
     <footer class="details-footer">Adri&aacute;n <span>&amp;</span> Andrea</footer>
   </section>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=20260901-movil-v6"></script>
 </body>
 </html>
